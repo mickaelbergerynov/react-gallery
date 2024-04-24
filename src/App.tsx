@@ -5,28 +5,19 @@ import Header from './components/Header';
 import { createContext, useState } from 'react';
 import getRandomName from './utils/getRandomName';
 
-export interface IUserContext {
-  username: string;
-  onRefreshClick: () => void;
-}
-
-export const UserContext = createContext<IUserContext>({ username: "John Doe", onRefreshClick: () => {}});
-
 function App() {
-  const [randUsername, setRandUsername] = useState(getRandomName());
+  const [username, setUsername] = useState(getRandomName());
 
   return (
-    <UserContext.Provider value={{ username: randUsername, onRefreshClick: () => setRandUsername(getRandomName()) }}>
       <div className="App">
-        <Header />
+        <Header username={username} onRefreshClick={() => setUsername(getRandomName())}/>
         <div className="body">
           <Gallery />
         </div>
         <div className="footer">
-          <Footer />
+          <Footer username={username} onRefreshClick={() => setUsername(getRandomName())}/>
         </div>
       </div>
-    </UserContext.Provider>
   );
 }
 

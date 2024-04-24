@@ -1,8 +1,8 @@
 import ProfileCard from "./ProfileCard";
 
-function Footer() {
+function Footer({ username, onRefreshClick }: {username: string, onRefreshClick: () => void }) {
     return <div className="footer">
-        <ProfileCard />
+        <ProfileCard username={username} onRefreshClick={onRefreshClick} />
     </div>
 }
 
