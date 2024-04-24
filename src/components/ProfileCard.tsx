@@ -1,10 +1,15 @@
-import userIcon from '../user_icon.jpg'
-function ProfileCard({ name } : { name: string }) {
+import userIcon from '../resources/user_icon.jpg'
+import refreshIcon from '../resources/refresh_icon.png'
+import { useContext } from 'react';
+import { IUserContext, UserContext } from '../App';
+function ProfileCard() {
+    const { username, onRefreshClick } = useContext<IUserContext>(UserContext);
     return <div className="profile-card">
-        <img src={userIcon} className="App-logo" alt="logo" />
+        <img src={userIcon} className="user-logo" alt="logo" />
         <p>
-            <code>{name}</code>
+            <code>{username}</code>
         </p>
+        <img src={refreshIcon} className="user-refresh-icon" alt="refresh username" onClick={() => onRefreshClick()} />
     </div>
 }
 

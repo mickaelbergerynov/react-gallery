@@ -83,3 +83,12 @@ body {
 .profile-card img {
   border-radius: 50%;
 }
+
+.user-logo {
+  height: 6vmin;
+}
+
+.user-refresh-icon {
+  height: 2vmin;
+  cursor: pointer;
+}
