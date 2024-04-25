@@ -1,5 +1,20 @@
 body {
   background-color: antiquewhite;
+  color: #282c34;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.small {
+  font-size: small;
+}
+
+.btn-link {
+  text-decoration: underline;
 }
 
 .App {
@@ -10,8 +25,11 @@ body {
 }
 
 .App-logo {
-  height: 8vmin;
-  pointer-events: none;
+  border-radius: 50%;
+  background-color: antiquewhite;
+  padding: .1em;
+  height: 55px;
+  cursor: pointer;
 }
 
 .header {
@@ -24,6 +42,7 @@ body {
   font-size: calc(10px + 2vmin);
   color: white;
   padding-right: 1em;
+  padding-left: 1em;
 }
 
 .img-card-container {
@@ -91,4 +110,62 @@ body {
 .user-refresh-icon {
   height: 2vmin;
   cursor: pointer;
+}
+
+.login-page {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2em 3em;
+  border: .3em solid #282c34ee;
+  border-radius: 1em;
+}
+
+.login-container .input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  height: 3em;
+}
+
+.input-container input {
+  height: 100%;
+  border-radius: .3em;
+}
+
+.send-btns {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.btn {
+  padding: .4em;
+  cursor: pointer;
+}
+
+.btn-send {
+  border: 1px solid #282c3488;
+  border-radius: 5px;
+}
+
+.btn-send:hover {
+  background-color: whitesmoke;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
