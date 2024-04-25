@@ -9,11 +9,10 @@ function ProfileCard() {
         if (!isLoggedIn) navigate("login");
     }, [isLoggedIn, navigate]);
     return <div className="profile-card">
-        <img src={userIcon} className="user-logo" alt="logo" onClick={() => redirectToLogin() } />
+        <img src={userIcon} className="user-logo" alt="logo" onClick={() => redirectToLogin()} />
         <p>
             <code>{username}</code>
         </p>
-        {/* <img src={refreshIcon} className="user-refresh-icon" alt="refresh username" onClick={() => refreshUsername()} /> */}
     </div>
 }
 

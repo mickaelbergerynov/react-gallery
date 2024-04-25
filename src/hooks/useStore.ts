@@ -1,32 +1,45 @@
 import { create } from "zustand";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase.config";
+import { User, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../config/firebase.config";
 
 type Store = {
-    isLoggedIn: boolean;
     username: string;
-    login: (email: string, password: string) => void;
+    isLoggedIn: boolean;
+    login: (email: string, password: string) => Promise<boolean>;
     logout: () => void;
-    setUsername: () => void;
+    user: User | null;
 }
 
-const useStore = create<Store>()((set) => ({
-    isLoggedIn: false,
-    username: "Anonymous",
-    login: (email: string, password: string) => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                set({username: user.email ? user.email.split("@")[0] : "Anonymous[logged]", isLoggedIn: true})
-            }).catch((error) => {
-                console.error(error);
-                alert(`Erreur à l'identification : ${error.code}::${error.message}`);
-            })
+const auth = getAuth(app);
+
+const getUsernameFromEmail = (email: string | null | undefined) => {
+    return email ? email.split("@")[0]! : "anonymous"; 
+}
+
+const useStore = create<Store>()((set, get) => ({
+    username: getUsernameFromEmail(get()?.user?.email),
+    isLoggedIn: !!get()?.user,
+    login: async (email: string, password: string) => {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            set({username: user.email ? user.email.split("@")[0] : "Anonymous[logged]"})
+            return true;
+        } catch (err: any) {
+            alert(`Erreur à l'identification : ${err.code}::${err.message}`);
+            return false;
+        }
     },
     logout: () => {
-        set({username: "Anonymous", isLoggedIn: false})
-    },
-    setUsername: () => set((state) => ({ username: state.username }))
-}))
+        auth.signOut();
+        set({username: "Anonymous"})
+    }, 
+    user: auth.currentUser
+}));
+
+auth.onAuthStateChanged(async (user) => {
+    console.log(user);
+    useStore.setState({user: user, isLoggedIn: !!user, username: getUsernameFromEmail(user?.email)})
+});
 
 export default useStore;

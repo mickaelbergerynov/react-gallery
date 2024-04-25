@@ -169,3 +169,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.login-loader {
+  margin-top: 1em;
+}
