@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import httpService from "../services/httpService";
 
 function useFetchGetData<T>(url: string) {
     const [data, setData] = useState<T | null>(null);
@@ -11,8 +12,8 @@ function useFetchGetData<T>(url: string) {
 
         const fetchData = async () => {
             try {
-                const res = await fetch(url);
-                const json = await res.json();
+                const res = await httpService(url);
+                const json = await res.data;
                 setLoading(false);
                 setData(json);
             } catch (error) {
